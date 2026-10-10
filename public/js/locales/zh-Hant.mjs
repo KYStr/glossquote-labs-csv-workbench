@@ -1,0 +1,28 @@
+export default {
+  fileHelp: '讀取成功會取代下方文字。最多 1 MiB。', fileUnsupported: '此瀏覽器無法讀取檔案，仍可貼上 CSV 文字。',
+  fileHint: '使用檔案原文，保留格內原始換行。編輯文字後會改以 LF 處理。',
+  textHint: '貼上或編輯的文字以 LF 換行處理，包括引號內的換行。',
+  idle: '貼上逗號分隔文字，或選擇 UTF-8 CSV 檔。', dirty: '來源已變更，請重新預覽 CSV。',
+  reading: '正在讀取選定的 CSV…', parsing: '正在檢查 CSV 結構…', preparingExport: '正在準備匯出副本…',
+  exportReady: '匯出已準備。請檢查副本後下載。', empty: '沒有 CSV 資料。請貼上內容或選擇檔案。',
+  headerOnly: '只有欄位名稱，沒有資料列。仍可匯出欄位名稱。', noColumns: '尚未選取欄位。請至少保留一欄。',
+  noRisk: '✓ 所選格未觸發本工具的公式風險規則。其他軟體仍可能自行推斷型別，請檢查匯入設定。',
+  original: '原值', protected: '保護副本值',
+  downloaded: '已開始下載。清除本頁不會刪除已下載檔案。',
+  formatProtected: '保護副本會在可能觸發公式的值前加入單引號。這會改變字串，請檢查下載內容。',
+  formatOriginal: '原值 CSV 保留所選格的字串與次序；引號風格及列分隔不是原檔逐位元組複製。',
+  formatJson: 'JSON 原值保留所選格的完整字串（含欄位名稱），使用 schemaVersion 1，不提供重新匯入。',
+  column: n => `第 ${n} 欄`, ready: n => `已讀取 ${n} 筆資料。選擇需要保留的欄位。`,
+  summary: (rows, selected, total) => `${rows} 筆資料，已選 ${selected}／${total} 欄`, page: (current,total) => `第 ${current}／${total} 頁`,
+  risk: n => `⚠ 所選範圍有 ${n} 格可能被試算表解讀為公式。CSV 原值已停用；請檢查保護副本，或選擇 JSON 原值。`,
+  changed: (name, size, count) => `${name}（${size} bytes）・修改 ${count} 格`, unchanged: (name,size) => `${name}（${size} bytes）・格值保留原字串`,
+  coordinate: (record,field) => `第 ${record} 筆／來源第 ${field} 欄`,
+  errors: {
+    FILE_TYPE: '請選擇一個副檔名為 .csv 的檔案；不支援 Excel。', INPUT_TOO_LARGE: '來源超過 1 MiB，請縮小檔案或分批處理。',
+    INVALID_UTF8: '檔案不是有效 UTF-8。請在原應用另存 UTF-8 CSV 後重試。', INVALID_UNICODE: '來源含有不完整的 Unicode 字元，請修正來源後重試。', UNSUPPORTED_CONTROL: '來源含有不支援的控制字元，請移除後重試。',
+    CSV_SYNTAX: 'CSV 結構不完整，請檢查引號或分隔符。', COLUMN_MISMATCH: '這筆資料的欄數與第一筆不同。請修正來源；工具不會自動補欄。',
+    ROW_LIMIT: '來源超過 5,000 筆（含表頭），請分批處理。', COLUMN_LIMIT: '來源超過 50 欄，請縮小檔案。', CELL_LIMIT: '來源超過 100,000 格（含表頭），請分批處理。', FIELD_TOO_LONG: '格值超過 16,384 個 UTF-16 單位，請縮短來源。',
+    NO_COLUMNS: '請至少選取一欄。', FORMULA_RISK: '所選格有公式風險，無法匯出原值 CSV。請選擇保護副本或 JSON 原值。', OUTPUT_TOO_LARGE: '輸出超過 4 MiB，請減少所選欄位。',
+    UNSUPPORTED: '此瀏覽器缺少必要的本機處理能力，無法開始。', TIMEOUT: '工作超過五秒，已停止。請縮小來源後重試。', READ_FAILED: '檔案讀取失敗。原來源保留；請重新選檔。', WORKER_FAILED: '本機處理未完成，已停止。請重新預覽來源。', INVALID_SELECTION: '選欄設定不完整，請重新預覽後選欄。', INVALID_PAGE: '分頁不存在，請重新預覽。'
+  }
+};

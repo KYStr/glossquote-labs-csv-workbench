@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Preview UTF-8 CSV in your browser, preserve cell strings, select columns and export CSV copies or original JSON. Includes formula-risk checks with local data processing.">
+  <title>CSV Viewer &amp; Column Export｜GlossQuote-Labs</title>
+  <link rel="stylesheet" href="../styles/tokens.css">
+  <link rel="stylesheet" href="../styles/app.css">
+  <script type="module" src="../js/app.mjs"></script>
+</head>
+<body>
+<a class="skip-link" href="#source">Skip to CSV source</a>
+<header class="topbar"><a class="brand" href="https://glossquote.com/en/index.html">GlossQuote-Labs <span class="location">/ CSV</span></a><nav class="top-links" aria-label="Website and language"><a href="https://glossquote.com/en/index.html">All tools</a><a href="../index.html" lang="zh-Hant" hreflang="zh-Hant" title="Switching language clears this page’s data">繁體中文</a><button id="clear" type="button">Clear all</button></nav></header>
+<main>
+  <div class="intro"><h1>CSV viewer and column export</h1><p>Inspect your data, choose columns and download the copy you need.</p></div>
+  <section class="source-area" aria-labelledby="source-title">
+    <div class="section-heading"><h2 id="source-title">CSV source</h2><span class="local-note">Processed on your device</span></div>
+    <div class="file-row"><label for="file">Choose one UTF-8 CSV file<input id="file" type="file" accept=".csv" aria-describedby="file-help"></label><p id="file-help">A successful read replaces the text below. Maximum 1 MiB.</p></div>
+    <label class="source-label" for="source">Or paste comma-separated text</label><textarea id="source" rows="4" spellcheck="false" aria-describedby="source-hint limits status"></textarea>
+    <p id="source-hint" class="helper">Pasted or edited text uses LF line breaks, including line breaks inside quoted cells.</p>
+    <div class="action-row"><button id="preview" class="primary" type="button">Preview CSV</button><label class="check-label"><input id="header" type="checkbox" checked>First record contains column names</label><button id="cancel" type="button" hidden>Cancel job</button></div>
+  </section>
+  <p id="status" class="status" role="status" aria-live="polite">Paste comma-separated text or choose a UTF-8 CSV file.</p>
+  <section id="workspace" class="workspace" aria-labelledby="preview-title" hidden>
+    <fieldset class="column-picker"><legend>Choose columns to keep</legend><p class="helper">Select by source position and keep the original order. Keep at least one column to export.</p><div id="columns" class="columns"></div></fieldset>
+    <div class="section-heading"><h2 id="preview-title">Selected original values</h2><p id="summary" class="helper"></p></div>
+    <div id="table-region" class="table-region" role="region" aria-label="Original CSV table, horizontally scrollable" tabindex="0"><table id="preview-table"><caption class="sr-only">Selected original values, up to 100 data rows per page</caption><thead id="table-head"></thead><tbody id="table-body"></tbody></table></div>
+    <p id="table-empty" class="helper" hidden></p>
+    <nav class="pagination" aria-label="Data pages"><button id="previous" type="button">Previous</button><span id="page-label"></span><button id="next" type="button">Next</button></nav>
+    <div class="export-area">
+      <h2>Export selected columns</h2>
+      <p id="risk" class="notice" role="status"></p>
+      <div class="export-controls"><label for="format">Export type<select id="format" aria-describedby="format-help risk"><option value="protected">CSV protected copy</option><option value="original">CSV original values</option><option value="json">JSON original values</option></select></label><button id="prepare" type="button" disabled>Prepare export</button></div>
+      <p id="format-help" class="helper">The protected copy prefixes possible formula values with an apostrophe. This changes the strings. Check the downloaded content.</p>
+      <section id="output" class="output" aria-labelledby="output-title" hidden>
+        <h3 id="output-title">Review before downloading</h3><p id="output-info"></p>
+        <div id="comparison" hidden><h3>Cells that will change</h3><p class="helper">Full original and protected values, up to 100 cells per page. Spreadsheet applications may behave differently; the protected copy is not a universal safety guarantee.</p><div id="comparison-list"></div><nav class="pagination" aria-label="Changed cell pages"><button id="compare-previous" type="button">Previous</button><span id="compare-page"></span><button id="compare-next" type="button">Next</button></nav></div>
+        <label id="ack-area" class="check-label acknowledgement" hidden><input id="ack" type="checkbox">I understand that the protected copy changes these values</label>
+        <button id="download" class="primary" type="button" disabled>Download copy</button>
+      </section>
+    </div>
+  </section>
+  <p id="limits" class="limits">Limits: 1 MiB / 5,000 records (including header) / 50 columns / 100,000 cells / 16,384 UTF-16 units per cell. Maximum output: 4 MiB.</p>
+  <noscript><p class="notice">JavaScript is required to process CSV locally. The format and usage notes below remain readable.</p></noscript>
+  <section class="help" aria-labelledby="method-title">
+    <h2 id="method-title">How to inspect and organize CSV columns</h2>
+    <p>Load a small comma-separated CSV, check column names and data, then choose the columns to keep. This tool does not infer numbers or dates, or execute formulas.</p>
+    <ol><li>Paste CSV text or explicitly choose one UTF-8 .csv file.</li><li>Select “Preview CSV”, check whether the first record contains column names, and choose the columns to keep.</li><li>Choose an export type and select “Prepare export”. Review changes in the protected copy, acknowledge them when required, then select “Download copy”.</li></ol>
+    <h3>Format and preservation</h3>
+    <p>Only UTF-8 CSV with commas, double-quote escaping and consistent column counts is accepted. Record separators may be CRLF or LF; a lone CR outside quotes is rejected. Big5, UTF-16 and separator detection are not supported. Missing columns are not filled. Cell editing and sorting are not available.</p>
+    <p>Exported CSV quotes every cell, separates records with CRLF and uses UTF-8 without a BOM or a final record separator. Line breaks inside cells depend on the source path. “Original values” preserves cell strings and the order of selected columns and records, not the file’s original bytes. JSON uses schemaVersion 1 with source column positions and complete arrays of record strings.</p>
+    <p>Conservative formula-risk rules include =, +, -, @ and their fullwidth equivalents after leading whitespace, or leading Tab, CR or LF. Negative numbers such as -12 are also flagged. CSV structure quotes do not protect against formulas. Prefixing an apostrophe in the protected copy changes the value. Original CSV is disabled when selected cells have risk; original JSON remains available.</p>
+    <h2>Frequently asked questions</h2>
+    <details><summary>Will 001 become 1?</summary><p>No. Cell values remain strings throughout this tool. Other software may infer types when opening downloaded CSV. Check its import settings.</p></details>
+    <details><summary>Why can’t my CSV be read?</summary><p>This tool accepts only valid UTF-8, comma-separated CSV with complete quote syntax and consistent column counts. Convert Big5, semicolon-separated or Tab-separated files in their original application first.</p></details>
+    <details><summary>How does the protected copy differ from original values?</summary><p>The protected copy adds an apostrophe before possible formula values, changing those cell strings. Original JSON keeps complete strings. Original CSV cannot be exported when selected cells have risk.</p></details>
+    <details><summary>Does the protected copy guarantee spreadsheet safety?</summary><p>No. Applications and subsequent saves may handle values differently. Check the content and do not treat text in an unknown CSV as trusted formulas.</p></details>
+    <details><summary>Can I edit, sort or upload Excel files?</summary><p>This tool only previews CSV and selects columns. It does not edit values, sort, accept xlsx or send data to cloud processing.</p></details>
+    <details><summary>Will line breaks inside my file change?</summary><p>When a selected file is not edited, line breaks inside cells are preserved from the original file text. Pasted or edited sources use the browser text field’s LF line breaks. To preserve original CRLF inside cells, choose the file again and preview it directly.</p></details>
+    <h3>Data and network</h3><p>After the website’s HTML, JavaScript and styles load, CSV parsing and export run in your device’s memory without a processing server, accounts or content storage. The website host may still receive connection information for ordinary static resource requests. There is no tracking, remote font or cloud fallback.</p>
+  </section>
+  <footer><p>Your working data stays in this page’s memory. Clear releases this page’s data; it does not delete downloaded files or guarantee physical memory erasure.</p></footer>
+</main>
+</body>
+</html>

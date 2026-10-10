@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="在瀏覽器查看 UTF-8 CSV，保留原始字串、選擇需要的欄位，匯出 CSV 副本或原值 JSON。提供公式風險提示，工作資料不送往處理伺服器。">
+  <title>CSV 預覽與欄位選擇匯出｜GlossQuote-Labs</title>
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/app.css">
+  <script type="module" src="js/app.mjs"></script>
+</head>
+<body>
+<a class="skip-link" href="#source">跳到 CSV 來源</a>
+<header class="topbar"><a class="brand" href="https://glossquote.com/index.html">GlossQuote-Labs <span class="location">/ CSV</span></a><nav class="top-links" aria-label="網站與語言"><a href="https://glossquote.com/index.html">工具首頁</a><a href="en/index.html" lang="en" hreflang="en" title="切換語言會清除本頁資料">English</a><button id="clear" type="button">全部清除</button></nav></header>
+<main>
+  <div class="intro"><h1>CSV 預覽與欄位匯出</h1><p>查看資料，勾選欄位，再下載需要的副本。</p></div>
+  <section class="source-area" aria-labelledby="source-title">
+    <div class="section-heading"><h2 id="source-title">CSV 來源</h2><span class="local-note">在裝置上處理</span></div>
+    <div class="file-row"><label for="file">選擇一個 UTF-8 CSV 檔<input id="file" type="file" accept=".csv" aria-describedby="file-help"></label><p id="file-help">讀取成功會取代下方文字。最多 1 MiB。</p></div>
+    <label class="source-label" for="source">或貼上逗號分隔文字</label><textarea id="source" rows="4" spellcheck="false" aria-describedby="source-hint limits status"></textarea>
+    <p id="source-hint" class="helper">貼上或編輯的文字以 LF 換行處理，包括引號內的換行。</p>
+    <div class="action-row"><button id="preview" class="primary" type="button">預覽 CSV</button><label class="check-label"><input id="header" type="checkbox" checked>第一列是欄位名稱</label><button id="cancel" type="button" hidden>取消工作</button></div>
+  </section>
+  <p id="status" class="status" role="status" aria-live="polite">貼上逗號分隔文字，或選擇 UTF-8 CSV 檔。</p>
+  <section id="workspace" class="workspace" aria-labelledby="preview-title" hidden>
+    <fieldset class="column-picker"><legend>選擇要保留的欄位</legend><p class="helper">依來源位置選欄，保持原次序。至少保留一欄才能匯出。</p><div id="columns" class="columns"></div></fieldset>
+    <div class="section-heading"><h2 id="preview-title">所選欄位原值</h2><p id="summary" class="helper"></p></div>
+    <div id="table-region" class="table-region" role="region" aria-label="CSV 原值表格，可水平捲動" tabindex="0"><table id="preview-table"><caption class="sr-only">所選欄位原值，每頁最多 100 筆資料</caption><thead id="table-head"></thead><tbody id="table-body"></tbody></table></div>
+    <p id="table-empty" class="helper" hidden></p>
+    <nav class="pagination" aria-label="資料分頁"><button id="previous" type="button">上一頁</button><span id="page-label"></span><button id="next" type="button">下一頁</button></nav>
+    <div class="export-area">
+      <h2>匯出所選欄位</h2>
+      <p id="risk" class="notice" role="status"></p>
+      <div class="export-controls"><label for="format">匯出類型<select id="format" aria-describedby="format-help risk"><option value="protected">CSV 保護副本</option><option value="original">CSV 原值</option><option value="json">JSON 原值</option></select></label><button id="prepare" type="button" disabled>準備匯出</button></div>
+      <p id="format-help" class="helper">保護副本會在可能觸發公式的值前加入單引號。這會改變字串，請檢查下載內容。</p>
+      <section id="output" class="output" aria-labelledby="output-title" hidden>
+        <h3 id="output-title">下載前確認</h3><p id="output-info"></p>
+        <div id="comparison" hidden><h3>會修改的格值</h3><p class="helper">完整原值與保護值對照，每頁最多 100 格。不同試算表可能有不同處理；保護副本不保證跨所有應用安全。</p><div id="comparison-list"></div><nav class="pagination" aria-label="修改格值分頁"><button id="compare-previous" type="button">上一頁</button><span id="compare-page"></span><button id="compare-next" type="button">下一頁</button></nav></div>
+        <label id="ack-area" class="check-label acknowledgement" hidden><input id="ack" type="checkbox">我了解保護副本會改變這些值</label>
+        <button id="download" class="primary" type="button" disabled>下載副本</button>
+      </section>
+    </div>
+  </section>
+  <p id="limits" class="limits">上限：1 MiB／5,000 筆（含表頭）／50 欄／100,000 格／每格 16,384 個 UTF-16 單位。輸出最多 4 MiB。</p>
+  <noscript><p class="notice">此工具需要 JavaScript 才能在本機處理 CSV；下方格式與使用說明仍可閱讀。</p></noscript>
+  <section class="help" aria-labelledby="method-title">
+    <h2 id="method-title">如何查看與整理 CSV 欄位</h2>
+    <p>讀取小型逗號分隔 CSV，確認欄位名稱與資料內容，再挑選要保留的欄位。工具不猜數字或日期，也不執行公式。</p>
+    <ol><li>貼上 CSV 文字，或明確選擇一個 UTF-8 .csv 檔案。</li><li>按「預覽 CSV」，確認第一列是否為欄位名稱，並勾選需要保留的欄位。</li><li>選擇匯出類型，按「準備匯出」。檢查保護副本的修改格值，必要時勾選確認，再按「下載副本」。</li></ol>
+    <h3>格式與保留範圍</h3>
+    <p>只接受 UTF-8、逗號分隔、雙引號 escaping 與欄數一致的 CSV。列分隔可為 CRLF 或 LF；引號外的孤立 CR 會被拒絕。不猜 Big5、UTF-16 或分隔符，也不自動補欄、排序或編輯儲存格。</p>
+    <p>CSV 匯出使用全欄雙引號、列間 CRLF、UTF-8 無 BOM，沒有最後列換行。格內換行取決於來源路徑。「原值」保留格值字串與所選欄／列次序，不是原始檔的逐位元組複製。JSON 以 schemaVersion 1 保留所選欄位位置與完整 records 字串陣列。</p>
+    <p>本工具以保守規則標記公式風險，含前導空白後的 =、+、-、@ 與相應全形符號，或前導 Tab／CR／LF。因此負數如 -12 也會標記。CSV 結構引號不是公式防護；保護副本加一個單引號會改變值。所選格有風險時無法下載原值 CSV，仍可使用 JSON 原值。</p>
+    <h2>常見問題</h2>
+    <details><summary>001 會變成 1 嗎？</summary><p>不會。格值全程保留字串；其他軟體開啟下載的 CSV 後可能自行推斷型別，請檢查匯入設定。</p></details>
+    <details><summary>為什麼我的 CSV 讀不到？</summary><p>目前只接受 UTF-8、逗號分隔、規則完整且欄數一致的 CSV。Big5、分號或 Tab 分隔檔需要先在原應用轉存。</p></details>
+    <details><summary>保護副本和原值有何不同？</summary><p>保護副本在可能觸發公式的值前加單引號，會改變該格字串。JSON 原值保留完整字串；有風險時 CSV 原值不能匯出。</p></details>
+    <details><summary>保護副本保證試算表安全嗎？</summary><p>不保證。不同應用與再次儲存可能有不同處理，請檢查內容；不要把未知 CSV 中的文字當成可信公式。</p></details>
+    <details><summary>可以編輯、排序或上傳 Excel 嗎？</summary><p>此工具只預覽和選欄，不編輯值、不排序、不接受 xlsx，也不傳資料到雲端處理。</p></details>
+    <details><summary>檔案內的換行會改變嗎？</summary><p>選檔後未編輯文字時，格內換行依檔案原文保留。貼上或編輯來源會採用瀏覽器文字欄位的 LF 換行；需要保留原始格內 CRLF 時，請重新選檔後直接預覽。</p></details>
+    <h3>資料與網路</h3><p>載入網站的 HTML、JavaScript 與樣式後，CSV 解析與匯出使用裝置上的記憶體，不需要處理伺服器、不建立帳號或內容儲存。網站主機仍可能收到一般靜態資源請求的連線資訊。本工具沒有追蹤、遠端字型或雲端備援。</p>
+  </section>
+  <footer><p>工作資料只留在本頁記憶體。清除會釋放本頁資料，不會刪除已下載檔案或保證物理抹除記憶體。</p></footer>
+</main>
+</body>
+</html>
