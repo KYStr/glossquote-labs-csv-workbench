@@ -120,7 +120,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "708040532179b5eddcca43ce943529563337d4566adf8c4e665691e4071a4d01"
+      "sha256": "5e35c1749bae4c4e4effa5564be88aafd8e91ae282f8a0bf549ee206d611a8f8"
     },
     {
       "path": "scripts/build.mjs",

@@ -1,5 +1,15 @@
 # CSV 預覽與欄位匯出
 
+## Current live release — 2026-10-11
+
+[繁體中文](https://csv.glossquote.com/index.html) · [English](https://csv.glossquote.com/en/index.html)
+
+Deployed source: [8bb5dae06600](https://github.com/KYStr/glossquote-labs-csv-workbench/commit/8bb5dae0660057f8b803d4e4410a8dbc8c9014f3); Cloudflare version `ebd109aa-323b-483e-acfc-9ee3e6468d2e`. This dated status supersedes older candidate-only or NOT_DEPLOYED notes below. Later documentation-only commits do not change the deployed assets.
+
+Release verification passed: 18 public assets matched the reviewed build byte for byte across 40 HTTP response checks, including HTTPS, security headers, MIME, bilingual SEO, robots/sitemap, missing paths and configured redirects. Both language pages received scoped browser checks. Formula-risk blocking, protected-export confirmation and a real CSV download preserving 001 were checked.
+
+The runtime retains its previously accepted offline test evidence; this release changes hosting configuration and documentation, not tool algorithms. Full Network/Storage inspection, physical devices, assistive technology and all remaining documented manual checks are still NOT_RUN. Live publication is not a claim of exhaustive certification or search-engine indexing.
+
 已實作的本機工具：繁體中文與英文介面、嚴格 UTF-8 CSV 解析、按位置選欄、100 筆分頁及三種匯出。必要本機 gate 已通過；明確人工 NOT_RUN 見 [驗收紀錄](docs/VALIDATION.md)。來源公開與網站部署分開，這份工具尚待正式主機整合驗收。
 
 給手上有小型CSV、只想查看內容並挑出幾個欄位的人：貼上文字或選擇一個UTF-8 CSV，確認表頭設定，勾選欄位，再預覽匯出副本。來源值永遠保留為字串，不猜日期、數字或公式。
