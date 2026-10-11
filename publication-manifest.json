@@ -177,6 +177,10 @@
     {
       "path": "UX-SEO.md",
       "sha256": "ed6ed5072d4896a012906c70ca956ac4c7e58a56592e726223a3077a0dc826d1"
+    },
+    {
+      "path": "wrangler.jsonc",
+      "sha256": "d11ff22563e73031bdc5127c593a3b9a439eada1ec343c7cd567756f3fa7a9dd"
     }
   ]
 }
