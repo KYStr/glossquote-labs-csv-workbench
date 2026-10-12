@@ -61,7 +61,7 @@ export async function check() {
     for (const [html, language, home] of [[zh,'zh-Hant','https://glossquote.com/index.html'],[en,'en','https://glossquote.com/en/index.html']]) {
       if (!html.includes(`<html lang="${language}">`) || !html.includes(`href="${home}"`) || (html.match(/<details>/gu) ?? []).length !== 6 || !html.includes('id="method-title"')) throw new Error('Bilingual static content');
     }
-    for (const name of ['js/core/input.mjs','js/core/csv.mjs','js/core/selection.mjs','js/core/risk.mjs','js/core/export.mjs','js/core/session.mjs','js/worker.mjs','js/worker-source.mjs','js/locales/en.mjs','js/locales/zh-Hant.mjs','404.html','robots.txt','_headers']) if (!names.has(resolve(publicRoot,name))) throw new Error('Missing final delivery asset');
+    for (const name of ['js/core/input.mjs','js/core/csv.mjs','js/core/selection.mjs','js/core/search.mjs','js/core/risk.mjs','js/core/export.mjs','js/core/session.mjs','js/worker.mjs','js/worker-source.mjs','js/locales/en.mjs','js/locales/zh-Hant.mjs','404.html','robots.txt','_headers']) if (!names.has(resolve(publicRoot,name))) throw new Error('Missing final delivery asset');
   }
   return files;
 }

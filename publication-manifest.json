@@ -8,7 +8,7 @@
     },
     {
       "path": "ACCEPTANCE.md",
-      "sha256": "662d2ec9b9f0e57e0c603f94a55baa081b3a9a01605f790cfc2dda6b5ccc9fd7"
+      "sha256": "5776db4878e4c18c2121bddbcac9c3a60914f9d483f2969dbbc43be7edaf0a85"
     },
     {
       "path": "docs/BRAND.md",
@@ -16,7 +16,7 @@
     },
     {
       "path": "docs/DESIGN-BRIEF.md",
-      "sha256": "887816172258e813a5fe9323c57ad1d626e8b643cc6318513044d2f1cb639df8"
+      "sha256": "b6cf05a72216c1235e1649b5d7043bb8e4da052a5101395e039f1d2e306c3734"
     },
     {
       "path": "docs/DESIGN-SYSTEM.md",
@@ -32,7 +32,7 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "4fa3114d3c5ad4030d73b0cc72eaa4c77c2b24a1027aa85d4958e3107d6b321f"
+      "sha256": "14f97417d15aadee11f2dfd312e5a26d2c7bce880470efd9a5767146aa511256"
     },
     {
       "path": "package.json",
@@ -40,7 +40,7 @@
     },
     {
       "path": "PRODUCT.md",
-      "sha256": "b40ac9a35290fd66f419a1abc14846f02914ddce905ab50ca2e568f269f7fa61"
+      "sha256": "da865e2bccd0e434566ddf8ee545ffcefca0deae9145543d77eea69ef5452d69"
     },
     {
       "path": "project.json",
@@ -56,15 +56,15 @@
     },
     {
       "path": "public/en/index.html",
-      "sha256": "21e2ac20d2a67f244d7ce72cad9eeb166f7043935f8cb980a3df130f6005a363"
+      "sha256": "7ec08b51c0e578b85810ff6286697a192909e9cf80f92db7855f0ec289d09349"
     },
     {
       "path": "public/index.html",
-      "sha256": "a099fa6b564e0c4786050a542d811044d5d2ac5711ed62982c1ed9a990b846b7"
+      "sha256": "18c21824e97e97f1300610ab4ebc9336dea08b9211188f81b44e5e895302a79f"
     },
     {
       "path": "public/js/app.mjs",
-      "sha256": "29121418ce0a751cb8e6e4c0bf8f916847da9f0cf82f11e75de69b8dc4fb3df8"
+      "sha256": "53c0a7fd2ff6f1814984ef8f9afe7aad58d2bdf666450da7adfba306b787d98e"
     },
     {
       "path": "public/js/core/csv.mjs",
@@ -83,6 +83,10 @@
       "sha256": "048aec01b021fbea6a39ee0fef615d64018d39814a29dc5cb386925035f86b25"
     },
     {
+      "path": "public/js/core/search.mjs",
+      "sha256": "63b8c767e40c490ddd9aaafa8a88c7311adaef86c2f08026338e7bcbd37edc79"
+    },
+    {
       "path": "public/js/core/selection.mjs",
       "sha256": "2331700799c6bbd043d3660a99794ff7ec48556d0884579b8d291514011057bc"
     },
@@ -92,11 +96,11 @@
     },
     {
       "path": "public/js/locales/en.mjs",
-      "sha256": "c39b319af109c2f9df2d38f1cffb6d7d2d570c93d169942774b8d70dc4c86105"
+      "sha256": "5d4a24bc7040c9452c7a2da98a912334ff60026594d85291d3d957e0bcf3e653"
     },
     {
       "path": "public/js/locales/zh-Hant.mjs",
-      "sha256": "1f34a9a1826d786c9c8a1952c321541f7348961fd33dbfd2cae82a1b2ccff13a"
+      "sha256": "b3b6f337424b6a8cd1bf47d663c3c1cbbe9317d9d8fc7cf84ed3438350f9a9b5"
     },
     {
       "path": "public/js/worker-source.mjs",
@@ -112,7 +116,7 @@
     },
     {
       "path": "public/styles/app.css",
-      "sha256": "42a2c58810b144b9e81e0c527a79d446333d24103b06f9d2922e9c937fa1d61c"
+      "sha256": "a4f34ca4440601b5c1ebbcb0e8a5d36e1261814527a035e1ce846f05de1e8a14"
     },
     {
       "path": "public/styles/tokens.css",
@@ -128,7 +132,7 @@
     },
     {
       "path": "scripts/check.mjs",
-      "sha256": "f9a7a21c88659ae721ad11d786e497d9bbc4f3e932528abc29e20fe5460aed7d"
+      "sha256": "9007a5401ef2a09122a50f85184769ed54ebdd43b72c882fc2af2a7ad5f4ab62"
     },
     {
       "path": "scripts/serve.mjs",
@@ -140,7 +144,7 @@
     },
     {
       "path": "TECHNICAL.md",
-      "sha256": "da5848a3da3ecb796549c4f7d3ef45c22dca21eb46edc804179c859a890939fc"
+      "sha256": "9263df7fad56878fdc2bc87751809e24d8c2bb0c7704f920958780d27ab2401e"
     },
     {
       "path": "test/csv.test.mjs",
@@ -163,12 +167,20 @@
       "sha256": "7868c86672d1ac41cfc798f2be036416cb06280afeb744620869325eeb2c62d4"
     },
     {
+      "path": "test/search-controller.test.mjs",
+      "sha256": "fb0846287c8175e4c3c5f6eec65b23aca5158f563d9ef3932ee1dfb5ae6b6ba9"
+    },
+    {
+      "path": "test/search.test.mjs",
+      "sha256": "1cd0c70b3e35a96204d30158bb1a47b56aac8912933ac0fc738ddf9228e9d46e"
+    },
+    {
       "path": "test/selection.test.mjs",
       "sha256": "92f3554b604a529b7e71bcaf471ffe73513304954899ab03e9bf134eeb6cfa97"
     },
     {
       "path": "test/seo.test.mjs",
-      "sha256": "e3b94aa5ebdb6c140878e031d8cf368cf210703c8c9ddea29c2e22c2530ce097"
+      "sha256": "18710ad133f0875700a2a0459c65edff45a481feedf0629ef2a101cea6896b42"
     },
     {
       "path": "test/session.test.mjs",
@@ -176,7 +188,7 @@
     },
     {
       "path": "UX-SEO.md",
-      "sha256": "ed6ed5072d4896a012906c70ca956ac4c7e58a56592e726223a3077a0dc826d1"
+      "sha256": "6b726b3b14e33b920795d63e169f171f99555453e873270beaeb6252a7072e56"
     },
     {
       "path": "wrangler.jsonc",

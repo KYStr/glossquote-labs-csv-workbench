@@ -1,4 +1,10 @@
 export default {
+  searchBusy: '請等待目前工作完成，再查找格值。', searchNoSource: '先預覽 CSV。', searchNoColumns: '先保留至少一欄，再查找格值。', searchNoData: '沒有資料列可查找。',
+  searchIdle: '選擇欄位並輸入字面內容，再按查找。', searchPending: '查找條件已變更，請按查找重新定位。', searchNoMatch: '沒有符合的格值。請檢查欄位、大小寫或字面內容。',
+  searchCurrent: '目前查找結果', searchRowHeading: '資料／CSV 位置',
+  searchRow: (data,record) => `資料第 ${data} 筆／CSV 第 ${record} 筆`,
+  searchMatches: (total,current,data,column,record) => `找到 ${total} 格；目前第 ${current}／${total} 格。資料第 ${data} 筆，來源第 ${column} 欄（CSV 第 ${record} 筆）。`,
+  searchOtherPage: page => `目前符合在第 ${page} 頁。`,
   fileHelp: '讀取成功會取代下方文字。最多 1 MiB。', fileUnsupported: '此瀏覽器無法讀取檔案，仍可貼上 CSV 文字。',
   fileHint: '使用檔案原文，保留格內原始換行。編輯文字後會改以 LF 處理。',
   textHint: '貼上或編輯的文字以 LF 換行處理，包括引號內的換行。',
@@ -18,6 +24,7 @@ export default {
   changed: (name, size, count) => `${name}（${size} bytes）・修改 ${count} 格`, unchanged: (name,size) => `${name}（${size} bytes）・格值保留原字串`,
   coordinate: (record,field) => `第 ${record} 筆／來源第 ${field} 欄`,
   errors: {
+    SEARCH_TOO_LONG: '查找內容超過 256 個 UTF-16 單位，請縮短後重新查找。', INVALID_SEARCH_QUERY: '查找內容須為單行，且使用完整的 Unicode 字元。',
     FILE_TYPE: '請選擇一個副檔名為 .csv 的檔案；不支援 Excel。', INPUT_TOO_LARGE: '來源超過 1 MiB，請縮小檔案或分批處理。',
     INVALID_UTF8: '檔案不是有效 UTF-8。請在原應用另存 UTF-8 CSV 後重試。', INVALID_UNICODE: '來源含有不完整的 Unicode 字元，請修正來源後重試。', UNSUPPORTED_CONTROL: '來源含有不支援的控制字元，請移除後重試。',
     CSV_SYNTAX: 'CSV 結構不完整，請檢查引號或分隔符。', COLUMN_MISMATCH: '這筆資料的欄數與第一筆不同。請修正來源；工具不會自動補欄。',

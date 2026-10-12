@@ -1,5 +1,17 @@
 # 技術規格
 
+## U04-LITERAL-FIND-20261013 增量
+
+新增 core/search.mjs：validateQuery 守 primitive string／256 UTF-16 units／CR-LF／surrogate；findCells(records,hasHeader,sourceColumnIndex,query) 沿既有 validateRecords 守全部 shape／row／column／cell／field／UTF-8 payload 上限，再以 includes 掃指定的一欄。回 Result 數字 metadata 列表，不複製 cell 或 projected records。
+
+metadata：recordIndex/sourceColumnIndex 0-based；recordNumber=recordIndex+1，fieldNumber=sourceColumnIndex+1，dataRowNumber=recordIndex-(hasHeader?1:0)+1，pageIndex=floor((dataRowNumber-1)/100)，pageRowIndex=(dataRowNumber-1)%100。最多 5,000 個位置，空 query 回空列表；無效 Boolean／index／records fail closed。
+
+app.mjs 匯出的 createSearchController 是實際 UI 使用的獨立 owner，只取得 getSession 和 goToPage。持有 query/sourceColumnIndex/matches/currentMatch/status/error，不取得 jobs、rawSource setter、output bytes 或 URL。observeSession 只採有效 session 事件；相同 session 的過期回覆忽略。query input 只清列表、不掃表；顯式 run 才搜尋。run/move 只以 page 事件換頁，comparePage 不重設。
+
+DOM 的數字 data-record-index/data-source-column 對應來源，與 projected index 分開。值與 query 一律 textContent／textarea value；查找使用一列 textarea，以保留非法多行／超長輸入供就地拒絕，不讓 input[type=text] 默默移除換行。只有 query 內無修飾 Enter 觸發查找；不掛全域鍵盤 handler。導航保留控制焦點，局部 table region 捲動，reduced-motion 使用 instant。
+
+parser、risk、serializer、encoding、session reducer、Worker／bundle 協議與資產全部沿用。check 只追加 search.mjs 必需資產，固定安全 API／雙語／bundle gate 不變。
+
 這是規格，尚未實作。原生HTML/CSS/ESM、Node24+ node:test，零runtime套件；不呼叫其他專案。
 
 ## 檔案樹

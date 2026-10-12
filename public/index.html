@@ -26,7 +26,13 @@
   <section id="workspace" class="workspace" aria-labelledby="preview-title" hidden>
     <fieldset class="column-picker"><legend>選擇要保留的欄位</legend><p class="helper">依來源位置選欄，保持原次序。至少保留一欄才能匯出。</p><div id="columns" class="columns"></div></fieldset>
     <div class="section-heading"><h2 id="preview-title">所選欄位原值</h2><p id="summary" class="helper"></p></div>
-    <div id="table-region" class="table-region" role="region" aria-label="CSV 原值表格，可水平捲動" tabindex="0"><table id="preview-table"><caption class="sr-only">所選欄位原值，每頁最多 100 筆資料</caption><thead id="table-head"></thead><tbody id="table-body"></tbody></table></div>
+    <fieldset class="search-area" aria-describedby="search-help"><legend>在欄位中查找</legend>
+      <p id="search-help" class="helper">區分大小寫、按字面查找所有資料頁；只定位，不篩選或改變匯出。單行內容最多 256 個 UTF-16 單位；空格也會比對。</p>
+      <div class="search-controls"><label for="search-column">查找欄位<select id="search-column" disabled></select></label><label class="query-label" for="search-query">字面內容<textarea id="search-query" rows="1" spellcheck="false" autocomplete="off" aria-describedby="search-help search-status" disabled></textarea></label><button id="search-find" type="button" disabled>查找</button></div>
+      <p id="search-status" class="search-status" role="status" aria-live="polite" aria-atomic="true">先預覽 CSV。</p>
+      <div class="search-navigation"><button id="search-previous" type="button" disabled>上一個</button><button id="search-next" type="button" disabled>下一個</button><button id="search-clear" type="button" disabled>清除查找</button></div>
+    </fieldset>
+    <div id="table-region" class="table-region" role="region" aria-label="CSV 原值表格，可捲動" tabindex="0"><table id="preview-table"><caption class="sr-only">所選欄位原值與資料／CSV 位置，每頁最多 100 筆資料</caption><thead id="table-head"></thead><tbody id="table-body"></tbody></table></div>
     <p id="table-empty" class="helper" hidden></p>
     <nav class="pagination" aria-label="資料分頁"><button id="previous" type="button">上一頁</button><span id="page-label"></span><button id="next" type="button">下一頁</button></nav>
     <div class="export-area">
@@ -47,7 +53,7 @@
   <section class="help" aria-labelledby="method-title">
     <h2 id="method-title">如何查看與整理 CSV 欄位</h2>
     <p>讀取小型逗號分隔 CSV，確認欄位名稱與資料內容，再挑選要保留的欄位。工具不猜數字或日期，也不執行公式。</p>
-    <ol><li>貼上 CSV 文字，或明確選擇一個 UTF-8 .csv 檔案。</li><li>按「預覽 CSV」，確認第一列是否為欄位名稱，並勾選需要保留的欄位。</li><li>選擇匯出類型，按「準備匯出」。檢查保護副本的修改格值，必要時勾選確認，再按「下載副本」。</li></ol>
+    <ol><li>貼上 CSV 文字，或明確選擇一個 UTF-8 .csv 檔案。</li><li>按「預覽 CSV」，確認第一列是否為欄位名稱，並勾選需要保留的欄位。</li><li>需要定位格值時，指定保留欄位及字面內容，按「查找」並用上／下一個跨頁查看；查找不會減少匯出資料。</li><li>選擇匯出類型，按「準備匯出」。檢查保護副本的修改格值，必要時勾選確認，再按「下載副本」。</li></ol>
     <h3>格式與保留範圍</h3>
     <p>只接受 UTF-8、逗號分隔、雙引號 escaping 與欄數一致的 CSV。列分隔可為 CRLF 或 LF；引號外的孤立 CR 會被拒絕。不猜 Big5、UTF-16 或分隔符，也不自動補欄、排序或編輯儲存格。</p>
     <p>CSV 匯出使用全欄雙引號、列間 CRLF、UTF-8 無 BOM，沒有最後列換行。格內換行取決於來源路徑。「原值」保留格值字串與所選欄／列次序，不是原始檔的逐位元組複製。JSON 以 schemaVersion 1 保留所選欄位位置與完整 records 字串陣列。</p>

@@ -1,6 +1,14 @@
 # UX與SEO
 
-這是規格，尚未實作。Product App；沿用 [設計系統](docs/DESIGN-SYSTEM.md)。
+既有 MVP 與本輪增量的 UX 契約。Product App；沿用 [設計系統](docs/DESIGN-SYSTEM.md)。
+
+## U04-LITERAL-FIND-20261013
+
+Always visible：在「所選欄位原值」和表格間放次要查找列，欄位／字面內容／查找，結果後接上／下一個和清除。桌面橫排，320px 換行；表格仍是局部可捲動的主畫布。新增資料／CSV row header 只用於辨識位置，不輸出。
+
+固定說明區分大小寫、全部資料頁、只定位不篩選、256 UTF-16 units、空格有效。數量／cursor／來源座標以 polite atomic status 宣告；目前格有可讀文字與輪廓。手動離開結果頁提示所在頁，沒有誤貼高亮。超長／多行輸入保留於一列 textarea，錯誤與其 aria-describedby 關聯；無全頁快捷鍵攔截，Next 焦點保留。
+
+兩語靜態 HTML 教學均加入查找步驟；title／description／六 FAQ／同語系首頁／noindex 預覽與 release canonical、alternates、sitemap、robots、404、安全標頭契約維持。新版等待主代理與外部驗證，不能沿用舊版通過狀態。
 
 ## 桌面與手機
 

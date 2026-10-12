@@ -58,3 +58,18 @@ guard before／after-local均PASS，以下值一致；没有自動修復或改�
 | HKLM | String | 1227 | 0 | 52d7cb0c3e02b67714f1b0caefc8f92d5d2c365bb2513dc537d42207d8b56eb8 | a0f49688069fd5a21146e94fd22764caedcd3ffbe25dc60c716a6a398673ac82 |
 
 正式release由主對話獨立驗收與整合。未修改首頁、其他工具、根Git index、Cloudflare/DNS或GlossGate。
+# U04-LITERAL-FIND-20261013 — 增量驗收（2026-10-13）
+
+新版狀態 **AWAITING_PRIMARY / EXTERNAL_REVIEW_PENDING**；沒有沿用舊版外部通過。本 owner 只實作、驗收及更新公開來源，不部署或改首頁。既有 2026-10-11 live release 與下方舊證據保留為歷史。
+
+- Node 24.14.0；focused 29/29 PASS，exit 0。settled npm.cmd test **61/61 PASS**，0 skipped；check、build、build -- --release 全 exit 0；preview19檔／release20檔。git diff --check exit0，但主repo的工具仍untracked，因此另以獨立發布 copy 的 staged diff --check 與逐檔 baseline 審查核對新增檔。
+- offline search tests／實際 controller 包含 U04-01..13：exact F201 坐標、重名／projection、header、query Unicode／上限／invalid、不可變 rawSource／risk／ack／bytes／job identity、busy／stale reply。U04-13 純函式測精確1MiB/5,000 records/100,000 cells，5000個metadata上限。
+- 真瀏覽器：Chrome extension 桌面及 Codex in-app Chromium，Windows。F201 dataRow1/100/101/201，page1/1/2/3、資料DOM100/100/1；同名第3欄150/CSV151/page2。手動離開目前結果頁無誤貼高亮；來源index與投影index分開，選欄／source edit清匹配並依原契約使匯出失效。
+- 真瀏覽器另核對字面 .／[x]／.*／foo、大小寫／空格／Unicode composition、256/257不截短／多行拒絕、HTML無img/dialog、header-off／header-only／空來源／no-columns。這些是原生UI操作，不是Node mock。
+- 真瀏覽器邊界檔1,048,576 bytes／5,000 records／100,000 cells：第1欄needle找到4,999格；第20欄lastmatch定位dataRow4,999／CSV5,000／page50，DOM99列。未見明顯長時間阻塞；沒有宣稱手機或效能benchmark。
+- nativeFileReader選CRLF檔：textarea顯示LF，table pre仍a CRLF b，b定位dataRow1/CSV2；查找後下載原值36bytes完全符合預期，首次真的textarea input才改text/LF並清查找。
+- 原生下載落盤：英文original搜尋前／四格跨頁／257錯誤／clear後各5,349bytes，均202records，SHA256同為5fe2a412b0e72d0033f6f0923828d1e8c0a47568d9e2072dc17451ad919bc0b8。另CRLF original36bytes SHA256 dc33215f1379a6eef0dc96e80be5bbdc54e8a9f64217e9aa15455fe1b8cdbe40；繁中protected41bytes SHA256 b44907c4df41a398c81b5dfe5914277ab278c78f7b5229c9b56f4adde818a6f6，原生確認前download停用，確認後search不撤回ack、original仍停用。副本bytes逐一核对固定預期，不讀其它下載資料。
+- 兩語真320CSSpx長欄名重排：含scrollbar client305，scrollWidth305；table-local client222/scroll886，外層不溢出。Enter查找、Home/ArrowDown選欄、Tab至Next／table-region、Next保留焦點；CSV textarea Enter插入換行並按既有input契約清查找。沒有全頁鍵盤handler，Ctrl+F由瀏覽器處理；原生Ctrl+F面板本輪未另外驗。
+- 真200%browser page zoom、實體裝置／触控、Firefox、AT/screen reader、完整Network/Storage稽核、下游試算表 **NOT_RUN**，不得以320viewport冒充zoom。靜態危險API、外部resource與bundle一致性gate仍PASS；query在記憶體、無新增request/storage程式路徑。沒有重新聲稱已做全面隱私稽核。
+- Chrome download事件未回路徑；改由工具本身在in-app Chromium原生下載並核對上述bytes。Chrome內部下載頁被瀏覽器URL安全政策拒絕，沒有繞過／讀browser profile／改設定。
+- Windows guard before與after-local紀錄比較完整Environment指紋，後续來源發布後再次核對，最終結果以HANDOFF／環境JSON為準。未讀部署憑證、未改持久設定。原始本輪證據只寫 .runs/04-csv-workbench-outcome-2026-10-13/；browser-evidence.json、native-downloads.json、native-more-downloads.json、final-gates.json與兩語截圖。

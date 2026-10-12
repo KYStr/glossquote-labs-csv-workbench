@@ -4,6 +4,14 @@ import { readFile } from 'node:fs/promises';
 import { releaseHtml, releaseMetadata, releaseOrigin } from '../scripts/build.mjs';
 import zh from '../public/js/locales/zh-Hant.mjs';
 import en from '../public/js/locales/en.mjs';
+test('U04-14 bilingual literal-search controls remain static, labeled and untruncated',async()=>{
+  for(const path of ['../public/index.html','../public/en/index.html']){
+    const html=await readFile(new URL(path,import.meta.url),'utf8');
+    for(const id of ['search-column','search-query','search-find','search-status','search-previous','search-next','search-clear'])assert.ok(html.includes(`id="${id}"`));
+    assert.match(html,/<label[^>]+for="search-query"/u);assert.match(html,/<textarea id="search-query"[^>]*aria-describedby="search-help search-status"/u);
+    assert.doesNotMatch(html,/<textarea id="search-query"[^>]*maxlength/u);assert.match(html,/id="search-status"[^>]*role="status"[^>]*aria-live="polite"/u);
+  }
+});
 test('complete UI/status/error dictionary parity in both languages',()=>{
   assert.deepEqual(Object.keys(zh).sort(),Object.keys(en).sort());assert.deepEqual(Object.keys(zh.errors).sort(),Object.keys(en.errors).sort());
   for(const copy of [zh,en])for(const [key,value] of Object.entries(copy))if(key!=='errors')assert.equal(typeof value=== 'function'?typeof value(2,3,4):typeof value,'string');

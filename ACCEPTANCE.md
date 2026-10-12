@@ -1,5 +1,28 @@
 # 驗收案例
 
+## U04-LITERAL-FIND-20261013
+
+增量 U04-01..14 見下表，fixture 與精確數值斷言在 test/search.test.mjs、test/search-controller.test.mjs；既有 CV／FR 驗收保持。focused：node --test test/search.test.mjs test/search-controller.test.mjs test/session.test.mjs test/selection.test.mjs test/export.test.mjs；settled 全 gate：npm.cmd test、npm.cmd run check、npm.cmd run build、npm.cmd run build -- --release、git diff --check。查找不得改 output bytes／jobId／ack／risk／rawSource；任何來源座標或匯出回歸阻擋候選。
+
+真正瀏覽器驗 F201 第 1/100/101/201 格及同名第 3 欄的 150，100/100/1 DOM、手動換頁、header-off、empty/header-only/no-columns、literal Unicode／HTML、256/257／多行 query。驗原生 file 的 quoted CRLF、兩語操作與下載實際 bytes；邊界檔為精確 1 MiB、5,000 records、100,000 cells。320px 與實際頁面 zoom／裝置／AT／完整 Network/Storage 的未跑項分別記錄，不以 Node mock／viewport／字體大小冒充。
+
+| ID | 固定預期 |
+| --- | --- |
+| U04-01 | F201 header true 第2來源欄 needle：recordIndex/dataRow 1,100,101,201；CSV 2,101,102,202；pageIndex 0,0,1,2；DOM 100/100/1。 |
+| U04-02 | F201 第3來源欄同名 note：唯一 dataRow150、CSV151、pageIndex1。 |
+| U04-03 | .／[x]／.* 為字面，foo.foo 的兩次出現只算一格。 |
+| U04-04 | Apple／apple、前後空格、空 query、é／e+combining 皆按原字串；空 query 無全表匹配。 |
+| U04-05 | header true 不搜表頭；false 的 recordIndex0 是 dataRow1／CSV1／page0，切換清舊匹配。 |
+| U04-06 | 檔案 id,note CRLF 與 quoted a CRLF b 保真，b 在 dataRow1／CSV2；首次 input 改 LF 並清匹配。 |
+| U04-07 | 準備 original 後搜尋／導航／清除／非法 query，jobId／outputJobId／bytes／ack／records／indices／format 不變；F201 仍匯出202 records。 |
+| U04-08 | =1+1 的風險仍1，protected ack=false 不得下載，original 停用；search 不確認、不撤回既有確認。 |
+| U04-09 | 選欄／來源變更按原契約使 output 失效，清 match，查找欄為剩餘首欄；不得悄悄選回隱藏欄或採過期回覆。 |
+| U04-10 | 上／下端不循環；no-match 保留頁；手動換頁保留 cursor、非所在頁無高亮，提示結果頁。 |
+| U04-11 | 256合法；257 SEARCH_TOO_LONG 且保留輸入；surrogate／CR-LF INVALID_SEARCH_QUERY；非法 Boolean／index／資料形狀拒絕。 |
+| U04-12 | HTML cell/query 純文字；empty、header-only、indices=[] 均有對應下一步。 |
+| U04-13 | 1MiB／5,000 records／100,000 cells 完整搜索；metadata ≤5,000，DOM資料≤100／頁，不截前100格。 |
+| U04-14 | 兩語鍵盤查找／Next 保留焦點、status可讀、320px／長欄名重排；實際zoom／AT等缺口獨立記錄。 |
+
 這是規格，尚未實作。全部案例仍待執行；只用以下可本機生成的假字串／bytes。表內輸入字串採JS escape表示CR/LF；格值以array精確驗證。
 
 | ID／類型 | 需求 | 輸入或步驟 | 精確預期 |

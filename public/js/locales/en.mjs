@@ -1,4 +1,10 @@
 export default {
+  searchBusy: 'Wait for the current job, then find a cell.', searchNoSource: 'Preview CSV first.', searchNoColumns: 'Keep at least one column to search.', searchNoData: 'There are no data rows to search.',
+  searchIdle: 'Choose a column and enter literal text to find a cell.', searchPending: 'The search has changed. Select Find to locate matches.', searchNoMatch: 'No matching cells. Check the column, letter case or literal text.',
+  searchCurrent: 'Current search match', searchRowHeading: 'Data / CSV position',
+  searchRow: (data,record) => `Data row ${data} / CSV record ${record}`,
+  searchMatches: (total,current,data,column,record) => `${total} ${Number(String(total).replaceAll(',',''))===1?'matching cell':'matching cells'}; current ${current} of ${total}. Data row ${data}, source column ${column} (CSV record ${record}).`,
+  searchOtherPage: page => `The current match is on page ${page}.`,
   fileHelp: 'A successful read replaces the text below. Maximum 1 MiB.', fileUnsupported: 'File reading is unavailable in this browser. You can still paste CSV text.',
   fileHint: 'Using the original file text, including line breaks inside cells. Editing switches the source to LF line breaks.',
   textHint: 'Pasted or edited text uses LF line breaks, including line breaks inside quoted cells.',
@@ -18,6 +24,7 @@ export default {
   changed: (name,size,count) => `${name} (${size} bytes) · ${count} ${count === '1' ? 'cell' : 'cells'} changed`, unchanged: (name,size) => `${name} (${size} bytes) · original cell strings preserved`,
   coordinate: (record,field) => `Record ${record} / source column ${field}`,
   errors: {
+    SEARCH_TOO_LONG: 'Search text exceeds 256 UTF-16 units. Shorten it and select Find again.', INVALID_SEARCH_QUERY: 'Use one line of search text with complete Unicode characters.',
     FILE_TYPE: 'Choose one file with a .csv extension. Excel files are not supported.', INPUT_TOO_LARGE: 'The source exceeds 1 MiB. Use a smaller file or split the data.',
     INVALID_UTF8: 'The file is not valid UTF-8. Save it as UTF-8 CSV in the original application and try again.', INVALID_UNICODE: 'The source contains incomplete Unicode characters. Correct it and try again.', UNSUPPORTED_CONTROL: 'The source contains unsupported control characters. Remove them and try again.',
     CSV_SYNTAX: 'The CSV structure is incomplete. Check quotes and separators.', COLUMN_MISMATCH: 'This record has a different column count from the first record. Correct the source; this tool does not fill missing columns.',

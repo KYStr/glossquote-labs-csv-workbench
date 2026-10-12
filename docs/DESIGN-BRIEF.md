@@ -1,5 +1,9 @@
 # CSV 工作表介面
 
+## U04 跨頁定位增量（2026-10-13）
+
+Product App／原 precision worksheet。常見工作為在數百筆已解析資料的一個保留欄核對一格；成功是可讀的來源座標和正確頁碼，匯出保持全資料。保留紙／墨／酸綠 tokens、原欄位流程與匯出主要動作。查找列沿表格上緣，導航在 status 旁；窄版改欄位、query、結果導航直排。格值不變，新增 row header 為 UI 座標，匹配以文字和 ink 輪廓加 success surface。桌面與 320px 同批檢查，不新增外部字型、動態或卡片系統。
+
 2026-10-10；Product App。對象是持有小型 CSV、需要確認原始字串並保留幾欄的使用者。成功狀態是看得見所選欄、公式風險與修改對照，主動下載正確格式。輸入資料不可信，尤其是格值公式與 HTML。
 
 沿用家族語意色：ink #111410、paper #f3f0e8、surface #ffffff、acid #c8f56a、muted #55594f、warning #713f00。UI 使用 Segoe UI／system-ui，資料使用 Cascadia Mono／ui-monospace；沒有字型下載。採平面工作表，綠色只強調當前預覽／下載動作，不加入行銷 hero、樣本假資料或卡片牆。

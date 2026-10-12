@@ -1,6 +1,6 @@
 # 產品規格
 
-這是規格，尚未實作。
+原始 MVP 契約與本輪增量規格；實際版本狀態與驗收見 HANDOFF。
 
 ## 需求
 
@@ -31,3 +31,13 @@ CSV匯出中的欄位引號僅為CSV結構escaping，不能當作公式防護。
 CSV原始bytes的引號風格與record換行可能改變；「原值」只承諾格值字串與所選欄／record次序，不是byte-for-byte原檔複製。clear不刪除已下載檔案，也不承諾記憶體物理抹除。
 
 若必須保留檔案內quoted CRLF或孤立CR，請選檔後直接預覽並匯出，不編輯文字副本。首次input事件清除file rawSource引用，改用textarea.value；所有後續操作都以新文字來源為準，不把舊file rawSource混回結果。
+
+## U04-LITERAL-FIND-20261013：跨頁字面定位
+
+FR-14：預覽後選擇一個目前保留的來源欄，顯式查找全部資料頁。以原字串 case-sensitive String.includes 比對，不 trim、normalize、轉型或使用 regex；每格最多計一次。空 query 為 idle，空格有效。最多 256 UTF-16 units，拒絕 CR/LF 或未配對 surrogate；就地錯誤不截短輸入，不使 CSV／匯出失效。
+
+FR-15：符合格依原 record 次序，以來源欄 index 識別。排除啟用中的表頭；顯示資料第 n 筆、來源第 m 欄、邏輯 CSV 第 r 筆。首次查找跳首格，上／下一個不循環，DOM 仍為每頁最多 100 筆。文字標記和輪廓識別目前格；UI 位置欄不加入資料或匯出。
+
+FR-16：查找只定位，不篩選。query／查找欄／清除只清匹配，保留 CSV 頁碼和全部原匯出狀態；match 導航只用既有 page 事件。來源／讀取／解析／clear 清全部查找；選欄／表頭按原失效契約，再清 match、將查找欄設為剩餘首欄，query 可保留並要求重新查找。格式變更和準備匯出保留查找；busy 禁用查找／導航，不取消 Worker。手動換頁保留 cursor，非所在頁不高亮其他格。
+
+新增固定就地錯誤碼 SEARCH_TOO_LONG、INVALID_SEARCH_QUERY；只回限制，不回顯輸入。原 FR-01..13、風險／bytes／rawSource 契約仍全部有效。本輪不加入排序、編輯、資料篩選、匹配列匯出、多欄查找或新 CSV 方言。
